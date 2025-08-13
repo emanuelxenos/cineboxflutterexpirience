@@ -11,5 +11,6 @@ AuthRepository authRepository(Ref ref) {
   return AuthRepositoryImpl(
     localStorageService: ref.read(localStorageServiceProvider),
     googleSigninService: ref.read(googleSigninServiceProvider),
+    authService: ref.read(authServiceProvider),
   );
 }

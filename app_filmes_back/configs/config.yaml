@@ -3,4 +3,4 @@ server:
 log:
   level: 0 # 0: Debug, 1: Info, 2: Warn, 3: Error
 google:
-  client_id:
+  client_id: 470504598200-534rjme8u5470hn8puf7s5d1ku01k5q1.apps.googleusercontent.com
