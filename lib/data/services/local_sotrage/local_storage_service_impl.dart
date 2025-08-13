@@ -13,7 +13,7 @@ class LocalStorageServiceImpl implements LocalStorageService {
   Future<Result<String>> getIdToken() async {
     final token = await _flutterSecureStorage.read(key: 'id_token');
     if (token != null) {
-      Success(token);
+      return Success(token);
     }
     return Failure(Exception('Token not found'));
   }
