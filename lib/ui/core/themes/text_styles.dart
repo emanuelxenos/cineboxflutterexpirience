@@ -12,7 +12,7 @@ abstract final class AppTextStyles {
     color: AppColors.lightGrey,
   );
 
-  final boldSmall = subTitleSmall.copyWith(
+  static final boldSmall = subTitleSmall.copyWith(
     fontWeight: FontWeight.bold,
   );
 

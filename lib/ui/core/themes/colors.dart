@@ -4,6 +4,6 @@ abstract class AppColors {
   static const redColor = Color(0xffEA4335);
   static const backgroundColor = Color(0xffF9F9F9);
   static const lightGrey = Color(0xFF9B9B9B);
-  static const darkGrey = Color(0xF4f4f4f4);
+  static const darkGrey = Color.fromARGB(255, 109, 104, 104);
   static const yellow = Color(0xFFFFBA49);
 }
