@@ -41,6 +41,8 @@ mixin LoaderAndMessage<T extends ConsumerStatefulWidget> on ConsumerState<T> {
   void showErrorSnackBar(String message) =>
       _showSnackBar(message, AppColors.redColor);
 
+  void showInfoSnackBar(String message) => _showSnackBar(message, Colors.blue);
+
   void showSuccessSnackBar(String message) =>
       _showSnackBar(message, Colors.green);
 }
