@@ -1,6 +1,5 @@
 import 'package:cinebox/core/result/result.dart';
 import 'package:cinebox/data/repositories/repositories_providers.dart';
-import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'check_user_logged_comand.g.dart';
