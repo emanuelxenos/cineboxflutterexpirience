@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cinebox/ui/core/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,11 +19,82 @@ class _MovieCardState extends ConsumerState<MovieCard> {
           width: 148,
           height: 250,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.network(
-                'https://media.themoviedb.org/t/p/w300_and_h450_bestv2/sMRXfq7Ilg7sbKipdmT0B6403G1.jpg',
+              CachedNetworkImage(
+                imageUrl:
+                    'https://media.themoviedb.org/t/p/w300_and_h450_bestv2/sMRXfq7Ilg7sbKipdmT0B6403G1.jpg',
+                imageBuilder: (context, imageProvider) {
+                  return Container(
+                    width: 148,
+                    height: 184,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  );
+                },
+                placeholder: (context, url) => Center(
+                  child: CircularProgressIndicator(),
+                ),
+                errorWidget: (context, url, error) {
+                  return Container(
+                    width: 148,
+                    height: 184,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.grey,
+                    ),
+                    child: Icon(
+                      Icons.error,
+                      color: Colors.red,
+                    ),
+                  );
+                },
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Alien',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              Text(
+                '2025',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.lightGrey,
+                ),
               ),
             ],
+          ),
+        ),
+        Positioned(
+          right: 0,
+          bottom: 50,
+          child: Material(
+            elevation: 8,
+            borderRadius: BorderRadius.circular(30),
+            child: CircleAvatar(
+              radius: 20,
+              backgroundColor: Colors.white,
+              child: IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.favorite,
+                  size: 16,
+                ),
+              ),
+            ),
           ),
         ),
       ],
