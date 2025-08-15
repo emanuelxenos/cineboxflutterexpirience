@@ -10,7 +10,7 @@ class MovieMappers {
             title: response.title,
             overview: response.overview,
             genreIds: response.genreIds ?? [],
-            votAverage: response.voteAvarage,
+            votAverage: response.voteAverage,
             posterPath: response.posterPath,
             backdropPath: response.backdroPath,
             releaseDate: response.releaseDate,
