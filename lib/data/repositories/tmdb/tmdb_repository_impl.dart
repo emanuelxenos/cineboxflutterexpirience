@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cinebox/core/result/result.dart';
+import 'package:cinebox/data/domain/models/genre.dart';
 import 'package:cinebox/data/domain/models/movie.dart';
 import 'package:cinebox/data/exceptions/data_exception.dart';
 import 'package:cinebox/data/mappers/movie_mappers.dart';
@@ -104,6 +105,20 @@ class TmdbRepositoryImpl implements TmdbRepository {
       return Failure(
         DataException(message: 'Erro ao buscar os filmes populares'),
       );
+    }
+  }
+
+  @override
+  Future<Result<List<Genre>>> getGenres() async {
+    try {
+      final data = await _tmdbService.getMoviesGenres();
+      final genres = data.genres
+          .map((g) => Genre(id: g.id, name: g.name))
+          .toList();
+      return Success(genres);
+    } on DioException catch (e, s) {
+      log('Erro ao buscar generos', error: e, stackTrace: s);
+      return Failure(DataException(message: 'Erro ao buscar generos'));
     }
   }
 }
