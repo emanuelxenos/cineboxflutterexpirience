@@ -1,4 +1,5 @@
 import 'package:cinebox/data/domain/usecases/get_movies_by_category_usecase.dart';
+import 'package:cinebox/data/domain/usecases/get_movies_by_genre_usecase.dart';
 import 'package:cinebox/data/repositories/repositories_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -10,3 +11,7 @@ GetMoviesByCategoryUsecase getMoviesByCategoryUsecase(Ref ref) {
     tmdbRepository: ref.read(tmdbRepositoryProvider),
   );
 }
+
+@riverpod
+GetMoviesByGenreUsecase getMoviesByGenreUsecase(Ref ref) =>
+    GetMoviesByGenreUsecase(tmdbRepository: ref.read(tmdbRepositoryProvider));

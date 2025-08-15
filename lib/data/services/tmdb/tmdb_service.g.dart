@@ -194,7 +194,7 @@ class _TmdbService implements TmdbService {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'search/movie',
+            '/search/movie',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -232,7 +232,7 @@ class _TmdbService implements TmdbService {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'discover/movie',
+            '/discover/movie',
             queryParameters: queryParameters,
             data: _data,
           )

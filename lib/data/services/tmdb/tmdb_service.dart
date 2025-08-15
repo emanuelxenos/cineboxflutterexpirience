@@ -39,14 +39,14 @@ abstract class TmdbService {
     @Query('page') int page = 1,
   });
 
-  @GET('search/movie')
+  @GET('/search/movie')
   Future<MovieResponse> searchMovies({
     @Query('query') required String query,
     @Query('language') String language = 'pt-BR',
     @Query('page') int page = 1,
   });
 
-  @GET('discover/movie')
+  @GET('/discover/movie')
   Future<MovieResponse> discoverMovies({
     @Query('language') String language = 'pt-BR',
     @Query('page') int page = 1,
