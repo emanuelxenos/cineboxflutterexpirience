@@ -1,9 +1,11 @@
 import 'package:cinebox/data/core/rest_client/backend_restclient_provider.dart';
+import 'package:cinebox/data/core/rest_client/tmdb_restclient_provider.dart';
 import 'package:cinebox/data/services/auth/auth_service.dart';
 import 'package:cinebox/data/services/google_signin/google_signin_service.dart';
 import 'package:cinebox/data/services/google_signin/google_signin_service_impl.dart';
 import 'package:cinebox/data/services/local_sotrage/local_storage_service.dart';
 import 'package:cinebox/data/services/local_sotrage/local_storage_service_impl.dart';
+import 'package:cinebox/data/services/tmdb/tmdb_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -23,4 +25,9 @@ LocalStorageService localStorageService(Ref ref) {
 @riverpod
 AuthService authService(Ref ref) {
   return AuthService(ref.read(backendRestClientProvider));
+}
+
+@riverpod
+TmdbService tmdbService(Ref ref) {
+  return TmdbService(ref.read(tmdbRestClientProvider));
 }

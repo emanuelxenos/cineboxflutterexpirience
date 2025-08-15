@@ -45,7 +45,7 @@ class _TmdbService implements TmdbService {
   }
 
   @override
-  Future<GenreResponse> getPopularMovies({
+  Future<MovieResponse> getPopularMovies({
     String language = 'pt-BR',
     int page = 1,
   }) async {
@@ -56,7 +56,7 @@ class _TmdbService implements TmdbService {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<GenreResponse>(
+    final _options = _setStreamType<MovieResponse>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -67,9 +67,9 @@ class _TmdbService implements TmdbService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late GenreResponse _value;
+    late MovieResponse _value;
     try {
-      _value = GenreResponse.fromJson(_result.data!);
+      _value = MovieResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -78,7 +78,7 @@ class _TmdbService implements TmdbService {
   }
 
   @override
-  Future<GenreResponse> getTopRagedMovies({
+  Future<MovieResponse> getTopRagedMovies({
     String language = 'pt-BR',
     int page = 1,
   }) async {
@@ -89,7 +89,7 @@ class _TmdbService implements TmdbService {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<GenreResponse>(
+    final _options = _setStreamType<MovieResponse>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -100,9 +100,9 @@ class _TmdbService implements TmdbService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late GenreResponse _value;
+    late MovieResponse _value;
     try {
-      _value = GenreResponse.fromJson(_result.data!);
+      _value = MovieResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -111,7 +111,7 @@ class _TmdbService implements TmdbService {
   }
 
   @override
-  Future<GenreResponse> getNowPlaingMovies({
+  Future<MovieResponse> getNowPlaingMovies({
     String language = 'pt-BR',
     int page = 1,
   }) async {
@@ -122,7 +122,7 @@ class _TmdbService implements TmdbService {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<GenreResponse>(
+    final _options = _setStreamType<MovieResponse>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -133,9 +133,9 @@ class _TmdbService implements TmdbService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late GenreResponse _value;
+    late MovieResponse _value;
     try {
-      _value = GenreResponse.fromJson(_result.data!);
+      _value = MovieResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -144,7 +144,7 @@ class _TmdbService implements TmdbService {
   }
 
   @override
-  Future<GenreResponse> getUpComingMovies({
+  Future<MovieResponse> getUpComingMovies({
     String language = 'pt-BR',
     int page = 1,
   }) async {
@@ -155,7 +155,7 @@ class _TmdbService implements TmdbService {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<GenreResponse>(
+    final _options = _setStreamType<MovieResponse>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -166,9 +166,9 @@ class _TmdbService implements TmdbService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late GenreResponse _value;
+    late MovieResponse _value;
     try {
-      _value = GenreResponse.fromJson(_result.data!);
+      _value = MovieResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -177,7 +177,7 @@ class _TmdbService implements TmdbService {
   }
 
   @override
-  Future<GenreResponse> searchMovies({
+  Future<MovieResponse> searchMovies({
     required String query,
     String language = 'pt-BR',
     int page = 1,
@@ -190,7 +190,7 @@ class _TmdbService implements TmdbService {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<GenreResponse>(
+    final _options = _setStreamType<MovieResponse>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -201,9 +201,9 @@ class _TmdbService implements TmdbService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late GenreResponse _value;
+    late MovieResponse _value;
     try {
-      _value = GenreResponse.fromJson(_result.data!);
+      _value = MovieResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -212,7 +212,7 @@ class _TmdbService implements TmdbService {
   }
 
   @override
-  Future<GenreResponse> discoverMovies({
+  Future<MovieResponse> discoverMovies({
     String language = 'pt-BR',
     int page = 1,
     String sortBy = 'popularity.desc',
@@ -228,7 +228,7 @@ class _TmdbService implements TmdbService {
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<GenreResponse>(
+    final _options = _setStreamType<MovieResponse>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -239,9 +239,9 @@ class _TmdbService implements TmdbService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late GenreResponse _value;
+    late MovieResponse _value;
     try {
-      _value = GenreResponse.fromJson(_result.data!);
+      _value = MovieResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
