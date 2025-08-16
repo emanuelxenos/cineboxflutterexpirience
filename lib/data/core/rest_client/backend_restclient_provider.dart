@@ -37,6 +37,7 @@ class BackendAuthInterceptor extends Interceptor {
         navKey.currentContext!,
       ).pushNamedAndRemoveUntil('/login', (_) => false);
     }
+    handler.reject(err);
   }
 }
 

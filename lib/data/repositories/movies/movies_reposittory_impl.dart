@@ -23,7 +23,7 @@ class MoviesReposittoryImpl implements MoviesReposittory {
       final favorites = response
           .map(
             (f) => FavoriteMovie(
-              id: f.id,
+              id: f.movieId,
               title: f.title,
               posterPath: f.posterUrl,
               year: f.year,
@@ -54,8 +54,8 @@ class MoviesReposittoryImpl implements MoviesReposittory {
     try {
       await _moviesService.saveFavoriteMovie(
         SaveFavoriteMovie(
-          id: favoriteMovie.id,
-          postterUrl: favoriteMovie.posterPath,
+          movieId: favoriteMovie.id,
+          posterUrl: favoriteMovie.posterPath,
           title: favoriteMovie.title,
           year: favoriteMovie.year,
         ),

@@ -4,14 +4,14 @@ part 'save_favorite_movie.g.dart';
 
 @JsonSerializable()
 class SaveFavoriteMovie {
-  final int id;
-  final String postterUrl;
+  final int movieId;
+  final String posterUrl;
   final String title;
   final int year;
 
   SaveFavoriteMovie({
-    required this.id,
-    required this.postterUrl,
+    required this.movieId,
+    required this.posterUrl,
     required this.title,
     required this.year,
   });

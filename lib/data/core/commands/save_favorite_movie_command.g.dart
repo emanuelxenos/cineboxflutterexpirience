@@ -57,7 +57,7 @@ final class SaveFavoriteMovieCommandProvider
 }
 
 String _$saveFavoriteMovieCommandHash() =>
-    r'86450611cdfc0014b1c9e813cc6d82a58cc05588';
+    r'b386624b011d222ea4eb36224e4cf26bb8a6557a';
 
 final class SaveFavoriteMovieCommandFamily extends $Family
     with

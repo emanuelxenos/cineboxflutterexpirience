@@ -4,7 +4,7 @@ part 'favorite_rmovie_response.g.dart';
 
 @JsonSerializable()
 class FavoriteRmovieResponse {
-  final int id;
+  final int movieId;
   final String posterUrl;
   final String title;
   final int year;
@@ -13,7 +13,7 @@ class FavoriteRmovieResponse {
       _$FavoriteRmovieResponseFromJson(json);
 
   FavoriteRmovieResponse({
-    required this.id,
+    required this.movieId,
     required this.posterUrl,
     required this.title,
     required this.year,

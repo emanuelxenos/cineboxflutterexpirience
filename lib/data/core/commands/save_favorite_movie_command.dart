@@ -33,8 +33,8 @@ class SaveFavoriteMovieCommand extends _$SaveFavoriteMovieCommand {
       case Success():
         log('Favorite adicionando com sucesso');
       case Failure(:final error):
-        state = AsyncError(error, StackTrace.current);
         favoriteMovieCommand.setFavorite(false);
+        state = AsyncError(error, StackTrace.current);
     }
   }
 }

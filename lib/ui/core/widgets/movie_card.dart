@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cinebox/data/core/commands/favorite_movie_command.dart';
+import 'package:cinebox/data/core/commands/save_favorite_movie_command.dart';
 import 'package:cinebox/ui/core/themes/colors.dart';
+import 'package:cinebox/ui/core/widgets/loader_messages.dart';
 import 'package:cinebox/ui/core/widgets/movie_card_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,7 +29,7 @@ class MovieCard extends ConsumerStatefulWidget {
   ConsumerState<MovieCard> createState() => _MovieCardState();
 }
 
-class _MovieCardState extends ConsumerState<MovieCard> {
+class _MovieCardState extends ConsumerState<MovieCard> with LoaderAndMessage {
   @override
   void initState() {
     super.initState();
@@ -41,6 +43,16 @@ class _MovieCardState extends ConsumerState<MovieCard> {
   @override
   Widget build(BuildContext context) {
     final isFavorite = ref.watch(favoriteMovieCommandProvider(widget.id));
+    ref.listen(
+      saveFavoriteMovieCommandProvider(widget.key!, widget.id),
+      (_, next) {
+        next.whenOrNull(
+          error: (error, stackTrace) {
+            showErrorSnackBar('Erro ao favoritar o filme');
+          },
+        );
+      },
+    );
     return Stack(
       children: [
         SizedBox(
