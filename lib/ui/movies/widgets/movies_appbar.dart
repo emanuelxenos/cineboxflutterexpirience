@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cinebox/ui/core/themes/colors.dart';
 import 'package:cinebox/ui/core/themes/resource.dart';
 import 'package:cinebox/ui/movies/movies_view_model.dart';
 import 'package:flutter/material.dart';
@@ -15,18 +16,27 @@ class MoviesAppbar extends ConsumerStatefulWidget {
 class _MoviesAppbarState extends ConsumerState<MoviesAppbar> {
   Timer? _debounce;
   final _searchController = TextEditingController();
+  final _showClearButtton = ValueNotifier(false);
 
-  // @override
-  // void initState() {
-  //   _searchController.addListener(() {
-  //     onSearchChange(_searchController.text);
-  //   });
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    _searchController.addListener(() {
+      _showClearButtton.value = _searchController.text.isNotEmpty;
+    });
+    super.initState();
+  }
 
   void onSearchChange(String query) {
+    if (query.isEmpty) {
+      _debounce?.cancel();
+      ref.read(moviesViewModelProvider.notifier).fetchMoviesByCategory();
+      return;
+    }
+
     if (_debounce?.isActive ?? false) _debounce?.cancel();
+
     _debounce = Timer(Duration(milliseconds: 500), () {
+      FocusScope.of(context).unfocus();
       ref.read(moviesViewModelProvider.notifier).fetchMoviesBySearch(query);
     });
   }
@@ -87,6 +97,27 @@ class _MoviesAppbarState extends ConsumerState<MoviesAppbar> {
                   color: Colors.grey[600],
                   size: 15,
                 ),
+              ),
+              suffixIcon: ValueListenableBuilder(
+                valueListenable: _showClearButtton,
+                builder: (_, value, child) {
+                  return Visibility(
+                    visible: value,
+                    child: IconButton(
+                      onPressed: () {
+                        _searchController.clear();
+                        ref
+                            .read(moviesViewModelProvider.notifier)
+                            .fetchMoviesByCategory();
+                      },
+                      icon: Icon(
+                        Icons.clear,
+                        color: AppColors.lightGrey,
+                        size: 15,
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           ),
