@@ -51,7 +51,7 @@ final class FavoriteViewModelProvider
   }
 }
 
-String _$favoriteViewModelHash() => r'9f27b2fa362ded24ed6e712e9c41cc19eaf73cd1';
+String _$favoriteViewModelHash() => r'b092e9dfb34dded4a398e37759428d7e5cf032ba';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
