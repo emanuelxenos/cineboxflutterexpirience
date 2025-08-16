@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cinebox/data/core/commands/favorite_movie_command.dart';
 import 'package:cinebox/ui/core/themes/colors.dart';
+import 'package:cinebox/ui/core/widgets/movie_card_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -114,7 +115,22 @@ class _MovieCardState extends ConsumerState<MovieCard> {
               radius: 20,
               backgroundColor: Colors.white,
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  ref
+                      .read(
+                        movieCardViewModelProvider(
+                          widget.key!,
+                          widget.id,
+                        ).notifier,
+                      )
+                      .addOrRemoveFavorite(
+                        id: widget.id,
+                        title: widget.title,
+                        posterPath: widget.imageUrl,
+                        year: widget.year,
+                        favorite: !isFavorite,
+                      );
+                },
                 icon: Icon(
                   isFavorite ? Icons.favorite : Icons.favorite_border,
                   color: isFavorite ? AppColors.redColor : AppColors.lightGrey,
