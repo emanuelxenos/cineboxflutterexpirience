@@ -88,5 +88,52 @@ final class TmdbRepositoryProvider
 
 String _$tmdbRepositoryHash() => r'8575399c7b57ab3c8330cd3256b551933ec80bd2';
 
+@ProviderFor(moviesReposittory)
+const moviesReposittoryProvider = MoviesReposittoryProvider._();
+
+final class MoviesReposittoryProvider
+    extends
+        $FunctionalProvider<
+          MoviesReposittory,
+          MoviesReposittory,
+          MoviesReposittory
+        >
+    with $Provider<MoviesReposittory> {
+  const MoviesReposittoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'moviesReposittoryProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$moviesReposittoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<MoviesReposittory> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  MoviesReposittory create(Ref ref) {
+    return moviesReposittory(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(MoviesReposittory value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<MoviesReposittory>(value),
+    );
+  }
+}
+
+String _$moviesReposittoryHash() => r'16d1c5060387ae3d427652dd2eeef9664bf13264';
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
