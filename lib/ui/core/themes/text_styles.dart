@@ -16,7 +16,7 @@ abstract final class AppTextStyles {
     fontWeight: FontWeight.bold,
   );
 
-  final regularSmall = subTitleSmall.copyWith(
+  static final regularSmall = subTitleSmall.copyWith(
     fontWeight: FontWeight.w400,
   );
 
