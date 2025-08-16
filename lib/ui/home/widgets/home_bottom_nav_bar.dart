@@ -4,7 +4,14 @@ import 'package:cinebox/ui/home/widgets/home_bottom_nav_bar_item.dart';
 import 'package:flutter/material.dart';
 
 class HomeBottomNavBar extends StatefulWidget {
-  const HomeBottomNavBar({super.key});
+  final int currentIndex;
+  final ValueChanged<int> onTap;
+
+  const HomeBottomNavBar({
+    super.key,
+    required this.currentIndex,
+    required this.onTap,
+  });
 
   @override
   State<HomeBottomNavBar> createState() => _HomeBottomNavBarState();
@@ -27,41 +34,45 @@ class _HomeBottomNavBarState extends State<HomeBottomNavBar> {
           ),
         ],
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadiusGeometry.circular(30),
-        child: BottomNavigationBar(
-          enableFeedback: false,
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.white,
-          currentIndex: 0,
-          selectedItemColor: AppColors.redColor,
-          unselectedItemColor: AppColors.lightGrey,
-          selectedLabelStyle: TextStyle(
-            fontSize: 12,
-            color: AppColors.redColor,
+      child: Container(
+        margin: EdgeInsets.only(bottom: 10),
+        child: ClipRRect(
+          borderRadius: BorderRadiusGeometry.circular(30),
+          child: BottomNavigationBar(
+            onTap: widget.onTap,
+            enableFeedback: false,
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: Colors.white,
+            currentIndex: widget.currentIndex,
+            selectedItemColor: AppColors.redColor,
+            unselectedItemColor: AppColors.lightGrey,
+            selectedLabelStyle: TextStyle(
+              fontSize: 12,
+              color: AppColors.redColor,
+            ),
+            unselectedLabelStyle: TextStyle(
+              fontSize: 10,
+              color: AppColors.lightGrey,
+              fontWeight: FontWeight.w400,
+            ),
+            items: [
+              HomeBottomNavBarItem(
+                label: 'Filmes',
+                activateAsset: R.ASSETS_IMAGES_ICON_FILME_NAV_BAR_PNG,
+                inactiveAsset: R.ASSETS_IMAGES_ICON_FILME_NAV_BAR_INATIVO_PNG,
+              ),
+              HomeBottomNavBarItem(
+                label: 'Favoritos',
+                activateAsset: R.ASSETS_IMAGES_ICON_HEART_BNB_PNG,
+                inactiveAsset: R.ASSETS_IMAGES_ICON_HEART_BNB_INATIVO_PNG,
+              ),
+              HomeBottomNavBarItem(
+                label: 'Perfil',
+                activateAsset: R.ASSETS_IMAGES_ICON_PROFILE_NAV_BAR_PNG,
+                inactiveAsset: R.ASSETS_IMAGES_ICON_PROFILE_NAV_BAR_INATIVO_PNG,
+              ),
+            ],
           ),
-          unselectedLabelStyle: TextStyle(
-            fontSize: 10,
-            color: AppColors.lightGrey,
-            fontWeight: FontWeight.w400,
-          ),
-          items: [
-            HomeBottomNavBarItem(
-              label: 'Filmes',
-              activateAsset: R.ASSETS_IMAGES_ICON_FILME_NAV_BAR_PNG,
-              inactiveAsset: R.ASSETS_IMAGES_ICON_FILME_NAV_BAR_INATIVO_PNG,
-            ),
-            HomeBottomNavBarItem(
-              label: 'Favoritos',
-              activateAsset: R.ASSETS_IMAGES_ICON_HEART_BNB_PNG,
-              inactiveAsset: R.ASSETS_IMAGES_ICON_HEART_BNB_INATIVO_PNG,
-            ),
-            HomeBottomNavBarItem(
-              label: 'Perfil',
-              activateAsset: R.ASSETS_IMAGES_ICON_PROFILE_NAV_BAR_PNG,
-              inactiveAsset: R.ASSETS_IMAGES_ICON_PROFILE_NAV_BAR_INATIVO_PNG,
-            ),
-          ],
         ),
       ),
     );
