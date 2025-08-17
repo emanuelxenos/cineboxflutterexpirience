@@ -57,7 +57,7 @@ class ActorCard extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
           Text(
-            name,
+            character,
             style: AppTextStyles.lightGreyRegular.copyWith(fontSize: 12),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,

@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cinebox/ui/core/themes/colors.dart';
 import 'package:cinebox/ui/core/themes/text_styles.dart';
+import 'package:cinebox/ui/core/widgets/loader_messages.dart';
+import 'package:cinebox/ui/movie_detail/commands/get_movie_details_command.dart';
+import 'package:cinebox/ui/movie_detail/commands/movie_detail_view_model.dart';
 import 'package:cinebox/ui/movie_detail/commands/widgets/cast_box.dart';
 import 'package:cinebox/ui/movie_detail/commands/widgets/movie_trailer.dart';
 import 'package:cinebox/ui/movie_detail/commands/widgets/rating_panel.dart';
@@ -15,84 +18,134 @@ class MovieDetailScreen extends ConsumerStatefulWidget {
   ConsumerState<MovieDetailScreen> createState() => _MovieDetailScreenState();
 }
 
-class _MovieDetailScreenState extends ConsumerState<MovieDetailScreen> {
+class _MovieDetailScreenState extends ConsumerState<MovieDetailScreen>
+    with LoaderAndMessage {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final movieId = ModalRoute.of(context)?.settings.arguments as int;
+      if (movieId == null) {
+        showErrorSnackBar('Id do filme não encontrado');
+        Navigator.pop(context);
+        return;
+      }
+      ref.read(movieDetailViewModelProvider).fetchMovieDetails(movieId);
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final movieDetail = ref.watch(getMovieDetailsCommandProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text('Detalhes do filme'),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          spacing: 24,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 278,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: CachedNetworkImage(
-                      imageUrl:
-                          'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/psEJSjQr6I9GSJTdW28CKC4Kffs.jpg',
-                      placeholder: (context, url) => Container(
-                        width: 160,
-                        color: AppColors.lightGrey,
-                        child: Center(
-                          child: CircularProgressIndicator(),
+      body: movieDetail.when(
+        data: (data) {
+          if (data == null) {
+            return Center(
+              child: Text('Filme não encontrado'),
+            );
+          }
+
+          final hoursRuntime = data.runtime ~/ 60;
+          final minutesRuntime = data.runtime % 60;
+
+          return SingleChildScrollView(
+            child: Column(
+              spacing: 24,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 278,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: data.images.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: CachedNetworkImage(
+                          fit: BoxFit.cover,
+                          imageUrl: data.images[index],
+                          placeholder: (context, url) => Container(
+                            width: 160,
+                            color: AppColors.lightGrey,
+                            child: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          ),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
                         ),
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Column(
+                    spacing: 8,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        data.title,
+                        style: AppTextStyles.titleLarge,
                       ),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                    ),
-                  );
-                },
-              ),
+                      RatingStars(
+                        starCount: 5,
+                        starColor: Colors.yellow,
+                        starSize: 14,
+                        valueLabelVisibility: false,
+                        value: data.voteAverage / 2,
+                      ),
+                      Text(
+                        data.genres.map((g) => g.name).join(', '),
+                        style: AppTextStyles.lightGreyRegular,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            '${DateTime.parse(data.releaseDate).year} | ',
+                            style: AppTextStyles.regularSmall,
+                          ),
+                          Icon(
+                            Icons.access_time,
+                            size: 15,
+                            color: AppColors.lightGrey,
+                          ),
+                          Text(
+                            '${hoursRuntime}h${minutesRuntime}',
+                            style: AppTextStyles.regularSmall,
+                          ),
+                        ],
+                      ),
+                      Text(
+                        data.overview,
+                        style: AppTextStyles.regularSmall,
+                      ),
+                      CastBox(movieDetail: data),
+                      if (data.videos.isNotEmpty)
+                        MovieTrailer(videoId: data.videos.first),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      RatingPanel(
+                        votAverage: data.voteAverage,
+                        voteCount: data.voteCount,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Column(
-                spacing: 8,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Luca',
-                    style: AppTextStyles.titleLarge,
-                  ),
-                  RatingStars(
-                    starCount: 5,
-                    starColor: Colors.yellow,
-                    starSize: 14,
-                    valueLabelVisibility: false,
-                    value: 3,
-                  ),
-                  Text(
-                    'Animação,Comédiaa, Familia, Fantasia',
-                    style: AppTextStyles.lightGreyRegular,
-                  ),
-                  Text(
-                    '2024 (USA) | 1h41',
-                    style: AppTextStyles.regularSmall,
-                  ),
-                  Text(
-                    'asgasdgasdgasdgsadgasdgasdgasdggasdgasdgasdfgfadgadsfadfhadfhadfh',
-                    style: AppTextStyles.regularSmall,
-                  ),
-                  CastBox(),
-                  MovieTrailer(),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  RatingPanel(
-                    votAverage: 1,
-                    voteCount: 5,
-                  ),
-                ],
-              ),
-            ),
-          ],
+          );
+        },
+        error: (error, stackTrace) => Center(
+          child: Text('Erro ao buscar detalhes do filme'),
+        ),
+        loading: () => Center(
+          child: CircularProgressIndicator(),
         ),
       ),
     );
