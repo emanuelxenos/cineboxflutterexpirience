@@ -4,7 +4,7 @@ PROJETO  CINEBOX FLUTTER EXPIRIENCE AGOSTO 2025
 
 ## Inicio
 
-Este projeto foi criado durante a participação do evento flutter expirience, evento este onde é ministrado por Rodrigo Rhaman um GDE. Considerado o maior eventdo de flutter do brasil.
+Este projeto foi criado durante a participação do evento flutter expirience, evento este onde é ministrado por Rodrigo Rhaman um GDE. Considerado o maior eventdo de flutter do Brasil.
 
 ## Qual o objetivo do app?
 
